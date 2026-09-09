@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MRr MihRab | Official</title>
+
+    <meta name="description" content="صفحه رسمی MRr MihRab">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="stylemihrab.css">
+</head>
+
+<body>
+
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Top Bar -->
+    <header class="topbar">
+
+        <div class="time" id="clock">
+            00:00:00
+        </div>
+
+        <div class="top-title">
+            حساب‌های من
+        </div>
+
+        <div class="date" id="date">
+            --
+        </div>
+
+    </header>
+
+
+    <!-- Main Card -->
+    <main class="container">
+
+        <section class="profile-card">
+
+            <!-- Profile -->
+            <div class="profile-wrapper">
+
+                <img
+                    src="profile.jpg"
+                    alt="MRr MihRab"
+                    class="profile-image"
+                >
+
+                <span class="online"></span>
+
+            </div>
+
+
+            <!-- Name -->
+            <h1>
+                MRr MihRab
+            </h1>
+
+            <div class="username">
+                @mihrab1panjshiri
+            </div>
+
+
+            <!-- Description -->
+            <p class="description">
+                در شبکه‌های اجتماعی من را دنبال داشته!
+            </p>
+
+
+            <!-- Social Links -->
+            <div class="social-links">
+
+                <!-- Telegram -->
+                <a
+                    href="https://t.me/mihrab1panjshiri"
+                    target="_blank"
+                    class="social-button"
+                >
+                    <span class="icon">✈</span>
+                    <span>حساب تلگرام</span>
+                </a>
+
+
+                <!-- Telegram Channel -->
+                <a
+                    href="https://t.me/AnT_x2"
+                    target="_blank"
+                    class="social-button"
+                >
+                    <span class="icon">✈</span>
+                    <span>کانال تلگرام</span>
+                </a>
+
+
+                <!-- Instagram -->
+                <a
+                    href="https://www.instagram.com/milad.mirzada1"
+                    target="_blank"
+                    class="social-button"
+                >
+                    <span class="icon">◎</span>
+                    <span>اینستاگرام من</span>
+                </a>
+
+
+                <!-- TikTok -->
+                <a
+                    href="https://www.tiktok.com/@almas.100k4"
+                    target="_blank"
+                    class="social-button"
+                >
+                    <span class="icon">♪</span>
+                    <span>تیک‌تاک من</span>
+                </a>
+
+
+                <!-- Facebook -->
+                <a
+                    href="https://www.facebook.com/share/1DaFMVur3u/?mibextid=wwXIfr"
+                    target="_blank"
+                    class="social-button full"
+                >
+                    <span class="icon">f</span>
+                    <span>فیسبوک من</span>
+                </a>
+
+
+                <!-- WhatsApp -->
+                <a
+                    href="https://wa.me/qr/UJUCT7JMQRD3D1"
+                    target="_blank"
+                    class="social-button full"
+                >
+                    <span class="icon">◉</span>
+                    <span>تماس با من در واتساپ</span>
+                </a>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        © 2026 MRr MihRab
+    </footer>
+
+
+    <!-- Clock -->
+    <script>
+
+        function updateTime() {
+
+            const now = new Date();
+
+            document.getElementById("clock").textContent =
+                now.toLocaleTimeString("fa-IR", {
+                    hour12: false
+                });
+
+            document.getElementById("date").textContent =
+                now.toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "short"
+                });
+        }
+
+        updateTime();
+
+        setInterval(updateTime, 1000);
+
+    </script>
+
+</body>
+</html>
