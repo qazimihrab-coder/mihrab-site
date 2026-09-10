@@ -1,0 +1,1559 @@
+/* =========================================
+   MRr MIHRAB
+   BLACK SHADOW / MATRIX SYSTEM
+========================================= */
+
+
+:root {
+
+  --green: #00ff66;
+  --green-dark: #00b84a;
+  --green-soft: rgba(0,255,102,0.15);
+
+  --black: #000501;
+  --panel: rgba(0,15,7,0.82);
+
+}
+
+
+/* =========================================
+   RESET
+========================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+body {
+
+  background: #000501;
+
+  color: var(--green);
+
+  font-family:
+    "Share Tech Mono",
+    monospace;
+
+  min-height: 100vh;
+
+  overflow-x: hidden;
+
+}
+
+
+/* =========================================
+   MATRIX CANVAS
+========================================= */
+
+#matrix {
+
+  position: fixed;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  z-index: -5;
+
+  opacity: 0.28;
+
+}
+
+
+/* =========================================
+   SCANLINES
+========================================= */
+
+.scanlines {
+
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 20;
+
+  pointer-events: none;
+
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0,255,80,0.025) 0px,
+      rgba(0,255,80,0.025) 1px,
+      transparent 2px,
+      transparent 5px
+    );
+
+}
+
+
+/* =========================================
+   NOISE
+========================================= */
+
+.noise {
+
+  position: fixed;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 15;
+
+  opacity: 0.05;
+
+  background-image:
+    radial-gradient(
+      rgba(0,255,100,0.8) 1px,
+      transparent 1px
+    );
+
+  background-size: 5px 5px;
+
+}
+
+
+/* =========================================
+   START SCREEN
+========================================= */
+
+.start-screen {
+
+  min-height: 100vh;
+
+  width: 100%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 35px 20px;
+
+  position: relative;
+
+  transition:
+    opacity .5s ease,
+    transform .5s ease;
+
+}
+
+
+.start-screen.hide {
+
+  opacity: 0;
+
+  transform: scale(1.08);
+
+  pointer-events: none;
+
+}
+
+
+/* =========================================
+   SYSTEM ONLINE
+========================================= */
+
+.top-status {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 14px;
+
+  letter-spacing: 5px;
+
+  font-weight: bold;
+
+  margin-bottom: 25px;
+
+  text-shadow:
+    0 0 10px var(--green);
+
+}
+
+
+.top-status i {
+
+  width: 9px;
+  height: 9px;
+
+  border-radius: 50%;
+
+  background: var(--green);
+
+  box-shadow:
+    0 0 10px var(--green),
+    0 0 25px var(--green);
+
+  animation: blink 1.2s infinite;
+
+}
+
+
+@keyframes blink {
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: .25;
+  }
+
+}
+
+
+/* =========================================
+   NETWORK NAME
+========================================= */
+
+.network-name {
+
+  font-size: 12px;
+
+  letter-spacing: 5px;
+
+  color: rgba(0,255,102,.55);
+
+  margin-bottom: 8px;
+
+}
+
+
+/* =========================================
+   RADAR
+========================================= */
+
+.radar {
+
+  width: 330px;
+
+  height: 330px;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  margin: -5px 0 5px;
+
+}
+
+
+.radar-circle {
+
+  position: absolute;
+
+  border: 1px solid
+    rgba(0,255,102,.35);
+
+  border-radius: 50%;
+
+}
+
+
+.circle-1 {
+
+  width: 320px;
+  height: 320px;
+
+}
+
+
+.circle-2 {
+
+  width: 230px;
+  height: 230px;
+
+}
+
+
+.circle-3 {
+
+  width: 135px;
+  height: 135px;
+
+}
+
+
+.radar::before {
+
+  content: "";
+
+  position: absolute;
+
+  width: 1px;
+
+  height: 100%;
+
+  background:
+    rgba(0,255,102,.22);
+
+}
+
+
+.radar::after {
+
+  content: "";
+
+  position: absolute;
+
+  height: 1px;
+
+  width: 100%;
+
+  background:
+    rgba(0,255,102,.22);
+
+}
+
+
+.radar-line {
+
+  position: absolute;
+
+  width: 50%;
+
+  height: 2px;
+
+  right: 50%;
+
+  top: 50%;
+
+  transform-origin: right center;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green),
+      transparent
+    );
+
+  filter:
+    drop-shadow(0 0 8px var(--green));
+
+  animation:
+    radarSpin 4s linear infinite;
+
+}
+
+
+@keyframes radarSpin {
+
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+
+}
+
+
+.radar-center {
+
+  width: 60px;
+
+  height: 60px;
+
+  border: 1px solid var(--green);
+
+  border-radius: 50%;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  font-size: 23px;
+
+  background:
+    rgba(0,30,12,.8);
+
+  box-shadow:
+    0 0 20px rgba(0,255,102,.25);
+
+}
+
+
+/* =========================================
+   MAIN TITLE
+========================================= */
+
+.main-title {
+
+  direction: ltr;
+
+  font-size:
+    clamp(45px, 13vw, 78px);
+
+  letter-spacing: 8px;
+
+  line-height: .95;
+
+  font-weight: 800;
+
+  color: var(--green);
+
+  text-shadow:
+    0 0 8px var(--green),
+    0 0 25px rgba(0,255,102,.8),
+    0 0 55px rgba(0,255,102,.4);
+
+  margin-top: -25px;
+
+}
+
+
+.main-title span {
+
+  display: block;
+
+}
+
+
+/* =========================================
+   SECRET TEXT
+========================================= */
+
+.secret-text {
+
+  font-size: 11px;
+
+  letter-spacing: 5px;
+
+  margin-top: 22px;
+
+  color: rgba(0,255,102,.75);
+
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.welcome {
+
+  margin-top: 38px;
+
+  font-size: 16px;
+
+  letter-spacing: 3px;
+
+  color: #d8ffe4;
+
+}
+
+
+.welcome p {
+
+  font-family:
+    "Noto Nastaliq Urdu",
+    serif;
+
+  font-size: 19px;
+
+  line-height: 2.4;
+
+  margin-top: 12px;
+
+  color: rgba(190,255,210,.85);
+
+}
+
+
+/* =========================================
+   ENTER BUTTON
+========================================= */
+
+.enter-button {
+
+  margin-top: 35px;
+
+  width: min(310px, 88vw);
+
+  min-height: 72px;
+
+  background:
+    rgba(0,25,10,.55);
+
+  border:
+
+    1px solid
+    var(--green);
+
+  color: var(--green);
+
+  font-family:
+    "Share Tech Mono",
+    monospace;
+
+  font-size: 17px;
+
+  font-weight: bold;
+
+  letter-spacing: 4px;
+
+  cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+
+  box-shadow:
+    0 0 15px rgba(0,255,102,.12),
+    inset 0 0 20px rgba(0,255,102,.03);
+
+  transition:
+    .25s ease;
+
+}
+
+
+.enter-button span {
+
+  margin-right: 15px;
+
+}
+
+
+.enter-button:hover {
+
+  background:
+    rgba(0,255,102,.12);
+
+  box-shadow:
+    0 0 25px rgba(0,255,102,.35),
+    inset 0 0 25px rgba(0,255,102,.08);
+
+  text-shadow:
+    0 0 10px var(--green);
+
+}
+
+
+.enter-button:active {
+
+  transform: scale(.96);
+
+}
+
+
+/* =========================================
+   CLASSIFIED
+========================================= */
+
+.classified {
+
+  margin-top: 28px;
+
+  font-size: 8px;
+
+  letter-spacing: 3px;
+
+  color:
+    rgba(0,255,102,.35);
+
+}
+
+
+/* =========================================
+   MAIN SITE
+========================================= */
+
+.main-site {
+
+  width: min(92%, 620px);
+
+  margin: auto;
+
+  padding:
+    35px 0 45px;
+
+  opacity: 0;
+
+  transform:
+    translateY(25px);
+
+  pointer-events: none;
+
+  transition:
+    opacity .7s ease,
+    transform .7s ease;
+
+}
+
+
+.main-site.show {
+
+  opacity: 1;
+
+  transform:
+    translateY(0);
+
+  pointer-events: auto;
+
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.header {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+}
+
+
+.logo {
+
+  direction: ltr;
+
+  font-size: 22px;
+
+  letter-spacing: 4px;
+
+  font-weight: bold;
+
+  text-shadow:
+    0 0 10px var(--green);
+
+}
+
+
+.logo span {
+
+  display: block;
+
+  font-size: 11px;
+
+  letter-spacing: 5px;
+
+  margin-top: 4px;
+
+  opacity: .65;
+
+}
+
+
+.system {
+
+  direction: ltr;
+
+  font-size: 10px;
+
+  letter-spacing: 2px;
+
+  text-align: right;
+
+}
+
+
+.system b {
+
+  display: block;
+
+  color: var(--green);
+
+}
+
+
+.system i {
+
+  display: inline-block;
+
+  width: 6px;
+  height: 6px;
+
+  background: var(--green);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 8px var(--green);
+
+}
+
+
+.header-line {
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--green),
+      transparent
+    );
+
+  margin:
+    22px 0 30px;
+
+  opacity: .5;
+
+}
+
+
+/* =========================================
+   PROFILE RADAR
+========================================= */
+
+.profile-section {
+
+  text-align: center;
+
+}
+
+
+.profile-radar {
+
+  width: 320px;
+
+  height: 320px;
+
+  max-width: 85vw;
+
+  max-height: 85vw;
+
+  margin: auto;
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+}
+
+
+.pr-circle {
+
+  position: absolute;
+
+  border:
+    1px solid
+    rgba(0,255,102,.4);
+
+  border-radius: 50%;
+
+}
+
+
+.pr-1 {
+
+  width: 100%;
+  height: 100%;
+
+}
+
+
+.pr-2 {
+
+  width: 72%;
+  height: 72%;
+
+}
+
+
+.pr-3 {
+
+  width: 42%;
+  height: 42%;
+
+}
+
+
+.pr-line {
+
+  position: absolute;
+
+  width: 50%;
+
+  height: 1px;
+
+  background:
+    linear-gradient(
+      90deg,
+      var(--green),
+      transparent
+    );
+
+  right: 50%;
+
+  top: 50%;
+
+  transform-origin: right;
+
+  animation:
+    radarSpin 4s linear infinite;
+
+}
+
+
+.profile-center {
+
+  width: 78px;
+
+  height: 78px;
+
+  border:
+    1px solid var(--green);
+
+  border-radius: 50%;
+
+  overflow: hidden;
+
+  position: relative;
+
+  background:
+    rgba(0,20,8,.9);
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  box-shadow:
+    0 0 25px rgba(0,255,102,.25);
+
+}
+
+
+.profile-center img {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: .7;
+
+}
+
+
+.profile-center span {
+
+  position: absolute;
+
+  font-size: 22px;
+
+  text-shadow:
+    0 0 10px var(--green);
+
+}
+
+
+.profile-section h2 {
+
+  direction: ltr;
+
+  font-size: 32px;
+
+  letter-spacing: 5px;
+
+  margin-top: 5px;
+
+  text-shadow:
+    0 0 15px rgba(0,255,102,.7);
+
+}
+
+
+.username {
+
+  direction: ltr;
+
+  color:
+    rgba(180,255,200,.65);
+
+  font-size: 14px;
+
+  margin-top: 8px;
+
+}
+
+
+.profile-status {
+
+  direction: ltr;
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  margin-top: 14px;
+
+}
+
+
+/* =========================================
+   TERMINAL
+========================================= */
+
+.terminal,
+.final-terminal {
+
+  margin-top: 32px;
+
+  padding: 22px;
+
+  border:
+    1px solid
+    rgba(0,255,102,.35);
+
+  background:
+    rgba(0,15,7,.78);
+
+  box-shadow:
+    inset 0 0 25px rgba(0,255,102,.025);
+
+}
+
+
+.terminal-title {
+
+  border-bottom:
+    1px solid
+    rgba(0,255,102,.25);
+
+  padding-bottom: 14px;
+
+  margin-bottom: 15px;
+
+}
+
+
+.terminal-line {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  gap: 15px;
+
+  direction: ltr;
+
+  font-size: 12px;
+
+  line-height: 2.2;
+
+  color:
+    rgba(200,255,215,.65);
+
+}
+
+
+.terminal-line b {
+
+  color: var(--green);
+
+  text-align: right;
+
+  text-shadow:
+    0 0 8px rgba(0,255,102,.45);
+
+}
+
+
+/* =========================================
+   SECTION BOX
+========================================= */
+
+.section-box {
+
+  margin-top: 25px;
+
+  padding: 25px;
+
+  border:
+    1px solid
+    rgba(0,255,102,.3);
+
+  position: relative;
+
+  background:
+    rgba(0,12,6,.7);
+
+}
+
+
+.section-number {
+
+  font-size: 10px;
+
+  letter-spacing: 3px;
+
+  opacity: .5;
+
+}
+
+
+.section-title {
+
+  font-size: 22px;
+
+  letter-spacing: 5px;
+
+  margin:
+    8px 0 18px;
+
+}
+
+
+.persian-text {
+
+  font-family:
+    "Noto Nastaliq Urdu",
+    serif;
+
+  font-size: 18px;
+
+  line-height: 2.5;
+
+  color:
+    rgba(220,255,225,.85);
+
+}
+
+
+/* =========================================
+   SOCIAL
+========================================= */
+
+.social-section {
+
+  margin-top: 35px;
+
+}
+
+
+.section-heading {
+
+  direction: ltr;
+
+  display: flex;
+
+  gap: 15px;
+
+  align-items: center;
+
+  font-size: 16px;
+
+  letter-spacing: 4px;
+
+  margin-bottom: 18px;
+
+}
+
+
+.section-heading span {
+
+  font-size: 10px;
+
+  opacity: .5;
+
+}
+
+
+.matrix-button {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  width: 100%;
+
+  min-height: 66px;
+
+  margin-bottom: 13px;
+
+  padding: 15px 55px;
+
+  text-decoration: none;
+
+  color: var(--green);
+
+  background:
+    rgba(0,20,9,.75);
+
+  border:
+    1px solid
+    rgba(0,255,102,.38);
+
+  font-family:
+    "Share Tech Mono",
+    monospace;
+
+  font-size: 16px;
+
+  letter-spacing: 3px;
+
+  transition:
+    .25s ease;
+
+  overflow: hidden;
+
+}
+
+
+.matrix-button span {
+
+  position: absolute;
+
+  left: 18px;
+
+  font-size: 10px;
+
+  opacity: .4;
+
+}
+
+
+.matrix-button b {
+
+  position: absolute;
+
+  right: 20px;
+
+  font-size: 20px;
+
+}
+
+
+.matrix-button::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: -100%;
+
+  top: 0;
+
+  width: 100%;
+
+  height: 100%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(0,255,102,.12),
+      transparent
+    );
+
+  transition:
+    left .45s ease;
+
+}
+
+
+.matrix-button:hover::before {
+
+  left: 100%;
+
+}
+
+
+.matrix-button:hover {
+
+  background:
+    rgba(0,255,102,.08);
+
+  border-color:
+    var(--green);
+
+  box-shadow:
+    0 0 20px rgba(0,255,102,.15);
+
+  text-shadow:
+    0 0 10px var(--green);
+
+  transform:
+    translateX(3px);
+
+}
+
+
+.matrix-button:active {
+
+  transform:
+    scale(.98);
+
+}
+
+
+/* =========================================
+   FINAL TERMINAL
+========================================= */
+
+.final-terminal {
+
+  font-size: 11px;
+
+  line-height: 2.5;
+
+  color:
+    rgba(190,255,205,.65);
+
+}
+
+
+.final-terminal strong {
+
+  color: var(--green);
+
+  text-shadow:
+    0 0 8px rgba(0,255,102,.5);
+
+}
+
+
+.cursor-line span {
+
+  display: inline-block;
+
+  width: 8px;
+
+  height: 13px;
+
+  background: var(--green);
+
+  vertical-align: middle;
+
+  animation:
+    cursorBlink .8s infinite;
+
+}
+
+
+@keyframes cursorBlink {
+
+  0%,
+  50% {
+    opacity: 1;
+  }
+
+  51%,
+  100% {
+    opacity: 0;
+  }
+
+}
+
+
+/* =========================================
+   FOOTER
+========================================= */
+
+footer {
+
+  text-align: center;
+
+  margin-top: 35px;
+
+  padding-top: 25px;
+
+  border-top:
+    1px solid
+    rgba(0,255,102,.15);
+
+  color:
+    rgba(0,255,102,.35);
+
+  font-size: 9px;
+
+  letter-spacing: 3px;
+
+  line-height: 2.4;
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 600px) {
+
+  .start-screen {
+
+    padding:
+      25px 15px;
+
+  }
+
+
+  .top-status {
+
+    font-size: 11px;
+
+    letter-spacing: 3px;
+
+  }
+
+
+  .network-name {
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+  }
+
+
+  .radar {
+
+    width: 280px;
+    height: 280px;
+
+  }
+
+
+  .circle-1 {
+
+    width: 280px;
+    height: 280px;
+
+  }
+
+
+  .circle-2 {
+
+    width: 200px;
+    height: 200px;
+
+  }
+
+
+  .circle-3 {
+
+    width: 120px;
+    height: 120px;
+
+  }
+
+
+  .main-title {
+
+    font-size: 48px;
+
+    letter-spacing: 5px;
+
+  }
+
+
+  .secret-text {
+
+    font-size: 8px;
+
+    letter-spacing: 3px;
+
+  }
+
+
+  .welcome {
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+  }
+
+
+  .welcome p {
+
+    font-size: 16px;
+
+  }
+
+
+  .enter-button {
+
+    min-height: 65px;
+
+    font-size: 14px;
+
+    letter-spacing: 3px;
+
+  }
+
+
+  .main-site {
+
+    width: 90%;
+
+    padding-top: 25px;
+
+  }
+
+
+  .logo {
+
+    font-size: 18px;
+
+  }
+
+
+  .system {
+
+    font-size: 8px;
+
+  }
+
+
+  .profile-radar {
+
+    width: 285px;
+
+    height: 285px;
+
+  }
+
+
+  .profile-section h2 {
+
+    font-size: 26px;
+
+    letter-spacing: 4px;
+
+  }
+
+
+  .terminal {
+
+    padding: 16px;
+
+  }
+
+
+  .terminal-line {
+
+    font-size: 9px;
+
+  }
+
+
+  .matrix-button {
+
+    min-height: 62px;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+  }
+
+
+  .persian-text {
+
+    font-size: 16px;
+
+  }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 380px) {
+
+  .radar {
+
+    width: 245px;
+    height: 245px;
+
+  }
+
+
+  .circle-1 {
+
+    width: 245px;
+    height: 245px;
+
+  }
+
+
+  .circle-2 {
+
+    width: 175px;
+    height: 175px;
+
+  }
+
+
+  .circle-3 {
+
+    width: 105px;
+    height: 105px;
+
+  }
+
+
+  .main-title {
+
+    font-size: 42px;
+
+  }
+
+
+  .profile-radar {
+
+    width: 245px;
+    height: 245px;
+
+  }
+
+
+  .terminal-line {
+
+    flex-direction: column;
+
+    gap: 0;
+
+  }
+
+}
